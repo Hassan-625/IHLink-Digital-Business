@@ -35,6 +35,8 @@ export function RegisterPage() {
   async function submit(event: FormEvent) {
     event.preventDefault();
     setError(null);
+    if (![form.firstName, form.middleName, form.lastName].every(name => name.trim())) return setError("Enter your first name, middle name and surname.");
+
     if (form.password.length < 8)
       return setError("Use at least eight characters for your password.");
     if (form.password !== form.confirm)
@@ -84,6 +86,7 @@ export function RegisterPage() {
           label="First name"
         />
         <Input
+          required
           value={form.middleName}
           onChange={(e) => update("middleName", e.target.value)}
           label="Middle name"
